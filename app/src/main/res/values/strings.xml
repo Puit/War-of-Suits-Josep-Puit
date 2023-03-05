@@ -7,4 +7,7 @@
     <string name="tie">TIE GAME</string>
     <string name="game_over">GAME OVER</string>
     <string name="congratulations">CONGRATULATIONS</string>
+    <string name="press_to_start">PRESS TO START</string>
+    <string name="opponent">OPPONENT</string>
+    <string name="you">YOU</string>
 </resources>

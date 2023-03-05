@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/scoreboard_opponent_title"
+            style="@style/bold.black.15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/opponent"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/scoreboard_opponent_score"
+            app:layout_constraintEnd_toStartOf="@+id/scoreboard_opponent_separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scoreboard_opponent_score"
+            style="@style/bold.black.15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/scoreboard_opponent_separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_opponent_title"
+            tools:text="100" />
+
+        <View
+            android:id="@+id/scoreboard_opponent_separator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/gray_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/scoreboard_suits"
+            app:layout_constraintStart_toEndOf="@+id/scoreboard_opponent_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/scoreboard_suits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/scoreboard_my_separator"
+            app:layout_constraintStart_toEndOf="@+id/scoreboard_opponent_separator"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/scoreboard_suits1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                tools:src="@drawable/clubs" />
+
+            <ImageView
+                android:id="@+id/scoreboard_suits2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                tools:src="@drawable/diamonds" />
+
+            <ImageView
+                android:id="@+id/scoreboard_suits3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                tools:src="@drawable/hearts" />
+
+            <ImageView
+                android:id="@+id/scoreboard_suits4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                tools:src="@drawable/spades" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:id="@+id/scoreboard_my_separator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/gray_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/scoreboard_my_title"
+            app:layout_constraintStart_toEndOf="@+id/scoreboard_suits"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scoreboard_my_title"
+            style="@style/bold.black.15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/you"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/scoreboard_my_score"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/scoreboard_my_separator"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scoreboard_my_score"
+            style="@style/bold.black.15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/scoreboard_my_separator"
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_my_title"
+            tools:text="100" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

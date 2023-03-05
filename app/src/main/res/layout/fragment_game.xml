@@ -8,35 +8,64 @@
         android:background="@color/background_green_lime">
 
         <ImageView
-            android:id="@+id/game_oponent_profits"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/back"
-            app:layout_constraintEnd_toStartOf="@+id/game_oponent_lot"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/game_oponent_lot"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/game_oponent_profits"
+            app:layout_constraintEnd_toStartOf="@+id/game_oponent_profits"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/game_feedback_text"
-            style="@style/bold.black.36"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/game_oponent_lot_under"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/back"
+            app:layout_constraintEnd_toStartOf="@+id/game_oponent_profits"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/game_oponent_profits"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/game_oponent_lot"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/game_feedback_text"
+                style="@style/bold.black.36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name" />
+
+            <com.nunnos.warofsuitsjoseppuit.presentation.components.Scoreboard
+                android:id="@+id/game_score_board"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:SC_left_score="0"
+                app:SC_left_title="@string/opponent"
+                app:SC_right_score="0"
+                app:SC_right_title="@string/you" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <ImageView
             android:id="@+id/game_my_profits"
@@ -50,6 +79,16 @@
 
         <ImageView
             android:id="@+id/game_my_lot"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/game_my_profits" />
+
+        <ImageView
+            android:id="@+id/game_my_lot_under"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginBottom="30dp"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Scoreboard">
+        <attr name="SC_suit1_drawable" format="enum">
+            <enum name="CLUBS" value="0" />
+            <enum name="DIAMONTS" value="1" />
+            <enum name="HEARTS" value="2" />
+            <enum name="SPADES" value="3" />
+        </attr>
+
+        <attr name="SC_suit2_drawable" format="enum">
+            <enum name="CLUBS" value="0" />
+            <enum name="DIAMONTS" value="1" />
+            <enum name="HEARTS" value="2" />
+            <enum name="SPADES" value="3" />
+        </attr>
+        <attr name="SC_suit3_drawable" format="enum">
+            <enum name="CLUBS" value="0" />
+            <enum name="DIAMONTS" value="1" />
+            <enum name="HEARTS" value="2" />
+            <enum name="SPADES" value="3" />
+        </attr>
+        <attr name="SC_suit4_drawable" format="enum">
+            <enum name="CLUBS" value="0" />
+            <enum name="DIAMONTS" value="1" />
+            <enum name="HEARTS" value="2" />
+            <enum name="SPADES" value="3" />
+        </attr>
+
+        <attr name="SC_left_title" format="string" />
+        <attr name="SC_left_score" format="string" />
+        <attr name="SC_right_title" format="string" />
+        <attr name="SC_right_score" format="string" />
+
+    </declare-styleable>
+</resources>
