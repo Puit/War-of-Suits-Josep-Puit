@@ -81,7 +81,7 @@ class GameFragment : Fragment() {
         databinding.gameScoreBoard.setOpponentScore(0)
         databinding.gameScoreBoard.setSuits(shareViewModel.suitPriority)
         databinding.gamePlayBtn.text = getString(R.string.play)
-        databinding.gameResetBtn.visibility = GONE
+        databinding.gameResetBtn.visibility = INVISIBLE
 
         databinding.gameOponentProfits.visibility = INVISIBLE
         databinding.gameMyProfits.visibility = INVISIBLE
@@ -123,7 +123,7 @@ class GameFragment : Fragment() {
         databinding.gameMyLotUnder.visibility = GONE
         databinding.gameOponentLotUnder.visibility = GONE
         databinding.gamePlayBtn.text = getString(R.string.start)
-        databinding.gameResetBtn.visibility = GONE
+        databinding.gameResetBtn.visibility = INVISIBLE
     }
 
     private fun getDrawableOfCard(card: Card): Drawable? {
