@@ -4,6 +4,7 @@
     <string name="game">GAME</string>
     <string name="you_win">YOU WIN</string>
     <string name="you_lose">YOU LOSE</string>
+    <string name="tie">TIE GAME</string>
     <string name="game_over">GAME OVER</string>
     <string name="congratulations">CONGRATULATIONS</string>
 </resources>

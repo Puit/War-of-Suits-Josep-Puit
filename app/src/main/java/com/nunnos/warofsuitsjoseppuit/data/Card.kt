@@ -1,6 +1,9 @@
-package com.nunnos.warofsuits.data
+package com.nunnos.warofsuitsjoseppuit.data
 
 class Card(type: Type, number: Number) {
+    companion object {
+        const val MAX_CARDS = 52
+    }
     enum class Type {
         CLUBS,
         DIAMONTS,
@@ -23,16 +26,17 @@ class Card(type: Type, number: Number) {
         K,
         ACE
     }
-    private lateinit var type:Type
-    private lateinit var number: Number
+
+    var type: Type private set
+    var number: Number private set
+
     init {
         this.type = type
         this.number = number
     }
-    fun getType(): Type{
-        return type
-    }
-    fun getNumber(): Number{
-        return number
+
+    @Override
+    override fun toString(): String {
+        return "(" + type.name + ", " + number.name + ")"
     }
 }

@@ -37,9 +37,25 @@ class GameFragment() : Fragment() {
 
     private fun setListeners() {
         databinding.gameOponentLot.setOnClickListener {
-            shareViewModel.dealCards()
+            if (shareViewModel.haveToOrganizeTheGame()) {
+                shareViewModel.dealCards()
+                shareViewModel.shuffleSuitsPriority()
+                databinding.gameFeedbackText.visibility = View.GONE
+            } else {
+                shareViewModel.playOneRound()
+                if (shareViewModel.isGameFinished()) {
+                    val message: String
+                    when (shareViewModel.checkIfIWonTheGame(
+                        shareViewModel.myWonDeck, shareViewModel.opponentWonDeck
+                    )) {
+                        MainViewModel.GameResult.WIN -> message = getString(R.string.you_win)
+                        MainViewModel.GameResult.LOSE -> message = getString(R.string.you_lose)
+                        MainViewModel.GameResult.TIE -> message = getString(R.string.tie)
+                    }
+                    databinding.gameFeedbackText.visibility = View.VISIBLE
+                    databinding.gameFeedbackText.text = message
+                }
+            }
         }
     }
-
-
 }
