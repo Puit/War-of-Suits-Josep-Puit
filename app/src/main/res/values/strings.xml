@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">War of suits</string>
     <string name="start">Start</string>
+    <string name="reset">Reset</string>
     <string name="game">GAME</string>
     <string name="you_win">YOU WIN</string>
     <string name="you_lose">YOU LOSE</string>
@@ -10,4 +11,8 @@
     <string name="press_to_start">PRESS TO START</string>
     <string name="opponent">OPPONENT</string>
     <string name="you">YOU</string>
+    <string name="play">PLAY</string>
+    <string name="restart_question">Are you sure you want to restart?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

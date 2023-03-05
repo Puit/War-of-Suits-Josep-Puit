@@ -58,7 +58,7 @@
                 android:id="@+id/game_score_board"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="invisible"
                 app:SC_left_score="0"
                 app:SC_left_title="@string/opponent"
                 app:SC_right_score="0"
@@ -66,14 +66,13 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         <ImageView
             android:id="@+id/game_my_profits"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/back"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game_play_btn"
             app:layout_constraintEnd_toStartOf="@+id/game_my_lot"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -83,7 +82,7 @@
             android:layout_height="150dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/back"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game_play_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/game_my_profits" />
 
@@ -93,8 +92,34 @@
             android:layout_height="150dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/back"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/game_play_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/game_my_profits" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/game_play_btn"
+            style="@style/bold.white.24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="@color/purple_500"
+            android:text="@string/start"
+            app:layout_constraintBottom_toTopOf="@+id/game_reset_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="20dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/game_reset_btn"
+            style="@style/bold.white.24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:visibility="gone"
+            android:backgroundTint="@color/background_red"
+            android:text="@string/reset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
