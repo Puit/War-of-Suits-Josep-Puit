@@ -27,6 +27,7 @@
             <enum name="SPADES" value="3" />
         </attr>
 
+        <attr name="SC_round_title" format="string" />
         <attr name="SC_left_title" format="string" />
         <attr name="SC_left_score" format="string" />
         <attr name="SC_right_title" format="string" />

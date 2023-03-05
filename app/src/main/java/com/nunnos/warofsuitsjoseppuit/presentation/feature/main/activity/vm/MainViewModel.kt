@@ -14,6 +14,7 @@ class MainViewModel : MainNavigationViewModel() {
     lateinit var suitPriority: ArrayList<Card.Type>
     lateinit var myDeck: ArrayList<Card>
     lateinit var opponentDeck: ArrayList<Card>
+    var round = 0
     var myWonDeck = ArrayList<Card>()
     var opponentWonDeck = ArrayList<Card>()
 
@@ -31,6 +32,7 @@ class MainViewModel : MainNavigationViewModel() {
             shuffledDeckOfCards.drop((MAX_CARDS / 2)).take(MAX_CARDS - 1) as ArrayList<Card>
         myWonDeck = ArrayList()
         opponentWonDeck = ArrayList()
+        round = 0
         Log.d(TAG, "myDeck: " + myDeck.size)
         Log.d(TAG, "opponentDeck: " + opponentDeck.size)
     }
@@ -81,6 +83,7 @@ class MainViewModel : MainNavigationViewModel() {
             myDeck.remove(myDeck[0])
             opponentDeck.remove(opponentDeck[0])
         }
+        round++
     }
 
     fun checkIfIWonTheRound(

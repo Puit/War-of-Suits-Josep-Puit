@@ -9,6 +9,16 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/scoreboard_round_title"
+            style="@style/bold.black.20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Round 5"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
             android:id="@+id/scoreboard_opponent_title"
             style="@style/bold.black.15"
             android:layout_width="0dp"
@@ -18,7 +28,7 @@
             app:layout_constraintBottom_toTopOf="@+id/scoreboard_opponent_score"
             app:layout_constraintEnd_toStartOf="@+id/scoreboard_opponent_separator"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_round_title" />
 
         <TextView
             android:id="@+id/scoreboard_opponent_score"
@@ -40,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/scoreboard_suits"
             app:layout_constraintStart_toEndOf="@+id/scoreboard_opponent_title"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_round_title" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/scoreboard_suits"
@@ -50,7 +60,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@+id/scoreboard_my_separator"
             app:layout_constraintStart_toEndOf="@+id/scoreboard_opponent_separator"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_round_title">
 
             <ImageView
                 android:id="@+id/scoreboard_suits1"
@@ -86,7 +96,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/scoreboard_my_title"
             app:layout_constraintStart_toEndOf="@+id/scoreboard_suits"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_round_title" />
 
         <TextView
             android:id="@+id/scoreboard_my_title"
@@ -98,7 +108,7 @@
             app:layout_constraintBottom_toTopOf="@+id/scoreboard_my_score"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/scoreboard_my_separator"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/scoreboard_round_title" />
 
         <TextView
             android:id="@+id/scoreboard_my_score"

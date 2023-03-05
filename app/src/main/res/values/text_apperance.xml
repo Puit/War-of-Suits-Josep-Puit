@@ -14,6 +14,9 @@
     <style name="bold.black.24">
         <item name="android:textSize">24dp</item>
     </style>
+    <style name="bold.black.20">
+        <item name="android:textSize">20dp</item>
+    </style>
     <style name="bold.black.36">
         <item name="android:textSize">36dp</item>
     </style>

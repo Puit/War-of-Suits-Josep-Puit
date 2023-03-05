@@ -8,16 +8,6 @@
         android:background="@color/background_green_lime">
 
         <ImageView
-            android:id="@+id/game_oponent_lot"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/back"
-            app:layout_constraintEnd_toStartOf="@+id/game_oponent_profits"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/game_oponent_lot_under"
             android:layout_width="100dp"
             android:layout_height="150dp"
@@ -28,11 +18,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/game_oponent_lot"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/back"
+            app:layout_constraintEnd_toStartOf="@+id/game_oponent_profits"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
             android:id="@+id/game_oponent_profits"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/back"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/game_oponent_lot"
             app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
+                app:SC_round_title="@string/round"
                 app:SC_left_score="0"
                 app:SC_left_title="@string/opponent"
                 app:SC_right_score="0"
@@ -72,9 +75,20 @@
             android:layout_height="150dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/back"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/game_play_btn"
             app:layout_constraintEnd_toStartOf="@+id/game_my_lot"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/game_my_lot_under"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toTopOf="@+id/game_play_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/game_my_profits" />
 
         <ImageView
             android:id="@+id/game_my_lot"
@@ -86,15 +100,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/game_my_profits" />
 
-        <ImageView
-            android:id="@+id/game_my_lot_under"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="30dp"
-            android:src="@drawable/back"
-            app:layout_constraintBottom_toTopOf="@+id/game_play_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/game_my_profits" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/game_play_btn"
@@ -115,9 +120,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:visibility="gone"
             android:backgroundTint="@color/background_red"
             android:text="@string/reset"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

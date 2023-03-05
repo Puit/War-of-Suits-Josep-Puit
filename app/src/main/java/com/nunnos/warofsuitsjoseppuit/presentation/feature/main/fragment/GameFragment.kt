@@ -1,5 +1,6 @@
 package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.nunnos.warofsuitsjoseppuit.R
+import com.nunnos.warofsuitsjoseppuit.data.Card
 import com.nunnos.warofsuitsjoseppuit.databinding.FragmentGameBinding
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.MainActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm.MainViewModel
@@ -64,7 +66,6 @@ class GameFragment : Fragment() {
                 false
             )
         }
-
     }
 
     private fun newGame() {
@@ -81,9 +82,19 @@ class GameFragment : Fragment() {
         databinding.gameScoreBoard.setSuits(shareViewModel.suitPriority)
         databinding.gamePlayBtn.text = getString(R.string.play)
         databinding.gameResetBtn.visibility = GONE
+
+        databinding.gameOponentProfits.visibility = INVISIBLE
+        databinding.gameMyProfits.visibility = INVISIBLE
+        databinding.gameScoreBoard.setRoundTitle(getRound())
+    }
+
+    private fun getRound(): String {
+        return getString(R.string.round) + " " + shareViewModel.round
     }
 
     private fun playOneRound() {
+        databinding.gameOponentLot.setImageDrawable(getDrawableOfCard(shareViewModel.opponentDeck[0]))
+        databinding.gameMyLot.setImageDrawable(getDrawableOfCard(shareViewModel.myDeck[0]))
         shareViewModel.playOneRound()
         databinding.gameScoreBoard.setMyScore(shareViewModel.myWonDeck.size)
         databinding.gameScoreBoard.setOpponentScore(shareViewModel.opponentWonDeck.size)
@@ -92,6 +103,10 @@ class GameFragment : Fragment() {
         } else {
             databinding.gameResetBtn.visibility = VISIBLE
         }
+        databinding.gameOponentProfits.visibility = VISIBLE
+        databinding.gameMyProfits.visibility = VISIBLE
+        databinding.gameScoreBoard.setRoundTitle(getRound())
+
     }
 
     private fun gameEnded() {
@@ -109,5 +124,34 @@ class GameFragment : Fragment() {
         databinding.gameOponentLotUnder.visibility = GONE
         databinding.gamePlayBtn.text = getString(R.string.start)
         databinding.gameResetBtn.visibility = GONE
+    }
+
+    private fun getDrawableOfCard(card: Card): Drawable? {
+        val type: String
+        val number: String
+        when (card.type) {
+            Card.Type.CLUBS -> type = "club_"
+            Card.Type.DIAMONTS -> type = "diamond_"
+            Card.Type.HEARTS -> type = "hearts_"
+            Card.Type.SPADES -> type = "spades_"
+        }
+        when (card.number) {
+            Card.Number.TWO -> number = "2"
+            Card.Number.THREE -> number = "3"
+            Card.Number.FOUR -> number = "4"
+            Card.Number.FIVE -> number = "5"
+            Card.Number.SIX -> number = "6"
+            Card.Number.SEVEN -> number = "7"
+            Card.Number.EIGHT -> number = "8"
+            Card.Number.NINE -> number = "9"
+            Card.Number.TEN -> number = "10"
+            Card.Number.J -> number = "j"
+            Card.Number.Q -> number = "q"
+            Card.Number.K -> number = "k"
+            Card.Number.ACE -> number = "ace"
+        }
+        return requireActivity().getDrawable(
+            this.resources.getIdentifier(type + number, "drawable", requireActivity().packageName)
+        )
     }
 }

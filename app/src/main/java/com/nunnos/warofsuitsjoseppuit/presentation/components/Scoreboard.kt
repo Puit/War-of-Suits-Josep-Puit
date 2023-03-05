@@ -36,6 +36,7 @@ class Scoreboard @JvmOverloads constructor(
         val attributes =
             context.obtainStyledAttributes(attrs, R.styleable.Scoreboard, 0, 0)
         val leftTitle = attributes.getText(R.styleable.Scoreboard_SC_left_title)
+        val roundTitle = attributes.getText(R.styleable.Scoreboard_SC_left_title)
         val rightTitle = attributes.getText(R.styleable.Scoreboard_SC_right_title)
         val leftScore = attributes.getText(R.styleable.Scoreboard_SC_left_score)
         val rightScore = attributes.getText(R.styleable.Scoreboard_SC_right_score)
@@ -44,6 +45,7 @@ class Scoreboard @JvmOverloads constructor(
         val suit3 = attributes.getInt(R.styleable.Scoreboard_SC_suit3_drawable, -1)
         val suit4 = attributes.getInt(R.styleable.Scoreboard_SC_suit4_drawable, -1)
 
+        if (roundTitle != null) dataBinding.scoreboardRoundTitle.text = roundTitle
         if (leftTitle != null) dataBinding.scoreboardOpponentTitle.text = leftTitle
         if (rightTitle != null) dataBinding.scoreboardMyTitle.text = rightTitle
         if (leftScore != null) dataBinding.scoreboardOpponentScore.text = leftScore
@@ -88,5 +90,9 @@ class Scoreboard @JvmOverloads constructor(
 
     fun setMyScore(score: Int) {
         dataBinding.scoreboardMyScore.text = score.toString()
+    }
+
+    fun setRoundTitle(text: String) {
+        dataBinding.scoreboardRoundTitle.text = text
     }
 }
