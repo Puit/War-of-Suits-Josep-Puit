@@ -1,6 +1,7 @@
 package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.nunnos.warofsuitsjoseppuit.data.Card
 import com.nunnos.warofsuitsjoseppuit.data.Card.Companion.MAX_CARDS
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm.MainNavigationViewModel
@@ -15,9 +16,8 @@ class MainViewModel : MainNavigationViewModel() {
     lateinit var myDeck: ArrayList<Card>
     lateinit var opponentDeck: ArrayList<Card>
     var round = 0
-    var myWonDeck = ArrayList<Card>()
-    var opponentWonDeck = ArrayList<Card>()
-
+    var myWonDeck: MutableLiveData<ArrayList<Card>> = MutableLiveData()
+    var opponentWonDeck: MutableLiveData<ArrayList<Card>> = MutableLiveData()
 
     //TODO: TEST: comprobar que no hay más de 52,
     //TODO: TEST: comprobar que cada uno tiene 26
@@ -30,8 +30,8 @@ class MainViewModel : MainNavigationViewModel() {
         myDeck = shuffledDeckOfCards.drop(0).take((MAX_CARDS / 2)) as ArrayList<Card>
         opponentDeck =
             shuffledDeckOfCards.drop((MAX_CARDS / 2)).take(MAX_CARDS - 1) as ArrayList<Card>
-        myWonDeck = ArrayList()
-        opponentWonDeck = ArrayList()
+        myWonDeck.value = ArrayList()
+        opponentWonDeck.value = ArrayList()
         round = 0
         Log.d(TAG, "myDeck: " + myDeck.size)
         Log.d(TAG, "opponentDeck: " + opponentDeck.size)
@@ -64,16 +64,16 @@ class MainViewModel : MainNavigationViewModel() {
     fun playOneRound() {
         if (myDeck.isNotEmpty() && opponentDeck.isNotEmpty() && suitPriority.isNotEmpty()) {
             if (checkIfIWonTheRound(myDeck[0], opponentDeck[0], suitPriority)) {
-                myWonDeck.add(myDeck[0])
-                myWonDeck.add(opponentDeck[0])
+                addCard(myWonDeck, myDeck[0])
+                addCard(myWonDeck, opponentDeck[0])
                 Log.d(
                     TAG, "playOneRound: " + "I win " + "myCard: " + myDeck[0] +
                             " opponentDeck: " + opponentDeck[0] +
                             " suitPriority: " + suitPriority
                 )
             } else {
-                opponentWonDeck.add(myDeck[0])
-                opponentWonDeck.add(opponentDeck[0])
+                addCard(opponentWonDeck, myDeck[0])
+                addCard(opponentWonDeck, opponentDeck[0])
                 Log.d(
                     TAG, "playOneRound: " + "I lose " + "myCard: " + myDeck[0] +
                             " opponentDeck: " + opponentDeck[0] +
@@ -84,6 +84,14 @@ class MainViewModel : MainNavigationViewModel() {
             opponentDeck.remove(opponentDeck[0])
         }
         round++
+    }
+
+    private fun addCard(deck: MutableLiveData<ArrayList<Card>>, card: Card) {
+        if (deck.value != null) {
+            val oldList = deck.value!!
+            oldList.add(card)
+            deck.value = oldList
+        }
     }
 
     fun checkIfIWonTheRound(
@@ -116,7 +124,7 @@ class MainViewModel : MainNavigationViewModel() {
     }
 
     fun isGameFinished(): Boolean {
-        return myDeck.isEmpty() && opponentDeck.isEmpty() && myWonDeck.size + opponentWonDeck.size == MAX_CARDS
+        return myDeck.isEmpty() && opponentDeck.isEmpty() && myWonDeck.value!!.size + opponentWonDeck.value!!.size == MAX_CARDS
     }
 
     fun checkIfIWonTheGame(
