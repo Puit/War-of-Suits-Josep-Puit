@@ -1,0 +1,14 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Widget.App.ButtonStyle" parent="Widget.MaterialComponents.Button">
+<!--        <item name="materialThemeOverlay">@color/purple_700</item>-->
+        <item name="colorOnSurface">@color/purple_700_disabled</item>
+<!--        <item name="color">@color/purple_700</item>-->
+        <item name="backgroundTint">@color/purple_700</item>
+        <item name="android:disabledAlpha">0.5</item>
+<!--        <item name="itemTextColor">@color/white</item>-->
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

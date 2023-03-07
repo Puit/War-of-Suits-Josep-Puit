@@ -21,13 +21,20 @@ import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.MainAct
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm.MainViewModel
 import com.nunnos.warofsuitsjoseppuit.utils.AlertsManager
 import com.nunnos.warofsuitsjoseppuit.utils.AlertsManager.TwoButtonsAlertListener
+import kotlinx.coroutines.*
 
 
 class GameFragment : Fragment() {
+
     private val ANIMATION_DURATION = 500L
+    private val ANIMATION_WAITING_DURATION = 1000L
     private lateinit var databinding: FragmentGameBinding
     private lateinit var shareViewModel: MainViewModel
     private var enableToClick = true
+    private var job = Job()
+    private val mainScope =
+        CoroutineScope(Dispatchers.Main + job) // Para lanzar animacione debe usarse el main
+    private var jobIndex = 0
 
     companion object {
         fun newInstance(): GameFragment {
@@ -59,19 +66,29 @@ class GameFragment : Fragment() {
     private fun initObservers() {
         shareViewModel.opponentWonDeck.observe(viewLifecycleOwner) {
             databinding.gameScoreBoard.setOpponentScore(it.size)
+            vanishLastCardIfNeeded()
             if (it.size != 0)
                 plaOpponentWinAnimation()
         }
         shareViewModel.myWonDeck.observe(viewLifecycleOwner) {
             databinding.gameScoreBoard.setMyScore(it.size)
+            vanishLastCardIfNeeded()
             if (it.size != 0)
                 plaIWinAnimation()
+        }
+    }
+
+    private fun vanishLastCardIfNeeded() {
+        if (shareViewModel.myDeck.size == 0) {
+            databinding.gameMyLotUnder.visibility = INVISIBLE
+            databinding.gameScoreBoard.visibility = INVISIBLE
         }
     }
 
     private fun setListeners() {
         databinding.gamePlayBtn.setOnClickListener {
             if (enableToClick) {
+                jobIndex++
                 if (shareViewModel.haveToOrganizeTheGame()) {
                     newGame()
                 } else {
@@ -100,6 +117,7 @@ class GameFragment : Fragment() {
     }
 
     private fun newGame() {
+        jobIndex++
         shareViewModel.dealCards()
         shareViewModel.shuffleSuitsPriority()
         databinding.gameFeedbackText.visibility = INVISIBLE
@@ -192,12 +210,18 @@ class GameFragment : Fragment() {
                         R.drawable.back
                     )
                 )
-                enableToClick = true
+                enableButton(true)
             }
         })
-        fromOpponentToMyWinLotAnim.start()
-        fromMyLotToMyWinLotAnim.start()
-        enableToClick = false
+        mainScope.launch {
+            val oldJobIndex = jobIndex
+            delay(ANIMATION_WAITING_DURATION)
+            if (oldJobIndex == jobIndex) {
+                fromOpponentToMyWinLotAnim.start()
+                fromMyLotToMyWinLotAnim.start()
+                enableButton(false)
+            }
+        }
     }
 
     private fun plaOpponentWinAnimation() {
@@ -212,14 +236,14 @@ class GameFragment : Fragment() {
             "translationX",
             (databinding.gameMyLot.x - databinding.gameMyProfits.x)
         ).apply {
-            duration = 500
+            duration = ANIMATION_DURATION
         }
         val fromOpponentToOpponentWinLotAnim = ObjectAnimator.ofFloat(
             databinding.gameMyLot,
             "translationY",
             -(databinding.gameMyProfits.y - databinding.gameOponentLot.y)
         ).apply {
-            duration = 500
+            duration = ANIMATION_DURATION
         }
 
         fromMetToOpponentWinLotAnim.addListener(object : AnimatorListenerAdapter() {
@@ -232,7 +256,7 @@ class GameFragment : Fragment() {
                         R.drawable.back
                     )
                 )
-                enableToClick = true
+                enableButton(true)
             }
         })
         fromOpponentToOpponentWinLotAnim.addListener(object : AnimatorListenerAdapter() {
@@ -245,12 +269,18 @@ class GameFragment : Fragment() {
                         R.drawable.back
                     )
                 )
-                enableToClick = true
+                enableButton(true)
             }
         })
-        fromMetToOpponentWinLotAnim.start()
-        fromOpponentToOpponentWinLotAnim.start()
-        enableToClick = false
+        mainScope.launch {
+            val oldJobIndex = jobIndex
+            delay(ANIMATION_WAITING_DURATION)
+            if (oldJobIndex == jobIndex) {
+                fromMetToOpponentWinLotAnim.start()
+                fromOpponentToOpponentWinLotAnim.start()
+                enableButton(false)
+            }
+        }
     }
 
     private fun gameEnded() {
@@ -298,4 +328,10 @@ class GameFragment : Fragment() {
             this.resources.getIdentifier(type + number, "drawable", requireActivity().packageName)
         )
     }
+
+    private fun enableButton(bool: Boolean) {
+        enableToClick = bool
+        databinding.gamePlayBtn.isEnabled = bool
+    }
+
 }

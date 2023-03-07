@@ -104,11 +104,11 @@ class MainViewModel : MainNavigationViewModel() {
         } else if (myCard.number < opponentCard.number) {
             return false
         }
-        for (suitsIndex in suitPriority.size - 1 downTo 0 step 1) {
-            if (myCard.type == suitPriority[suitsIndex]) {
+        for (suit in suitPriority) {
+            if (myCard.type == suit) {
                 return true
             }
-            if (opponentCard.type == suitPriority[suitsIndex]) {
+            if (opponentCard.type == suit) {
                 return false
             }
         }

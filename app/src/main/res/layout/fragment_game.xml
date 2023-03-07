@@ -117,7 +117,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/game_play_btn"
-            style="@style/bold.white.24"
+            style="@style/Widget.App.ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
