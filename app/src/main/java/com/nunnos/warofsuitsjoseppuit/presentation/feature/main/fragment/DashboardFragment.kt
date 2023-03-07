@@ -11,6 +11,7 @@ import com.nunnos.warofsuitsjoseppuit.databinding.FragmentDashboardBinding
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.MainActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm.MainViewModel
 
+
 class DashboardFragment() : Fragment() {
     lateinit var databinding: FragmentDashboardBinding
     lateinit var shareViewModel: MainViewModel
@@ -31,9 +32,9 @@ class DashboardFragment() : Fragment() {
     ): View? {
         shareViewModel = (requireActivity() as MainActivity).viewModel
         databinding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_dashboard)
+
         setListeners()
         return inflater.inflate(R.layout.fragment_dashboard,container,false)
-
     }
 
     private fun setListeners() {
@@ -41,13 +42,4 @@ class DashboardFragment() : Fragment() {
             shareViewModel.navigateToGame()
         }
     }
-
-    override fun getView(): View? {
-        return super.getView()
-    }
-
-    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
-        return super.onGetLayoutInflater(savedInstanceState)
-    }
-
 }

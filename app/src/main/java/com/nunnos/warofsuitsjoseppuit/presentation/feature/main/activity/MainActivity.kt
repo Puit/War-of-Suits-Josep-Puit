@@ -3,6 +3,7 @@ package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.nunnos.warofsuitsjoseppuit.R
@@ -13,15 +14,12 @@ import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainN
 class MainActivity : AppCompatActivity() {
     lateinit var databinding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
-    lateinit var transaction: FragmentTransaction
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         databinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        transaction = supportFragmentManager.beginTransaction()
         initObservers()
         viewModel.navigateToDashboard()
     }
@@ -34,6 +32,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel
             )
         }
+    }
+
+    override fun onBackPressed() {
+        viewModel.popBackStack()
     }
 
 }

@@ -24,7 +24,7 @@ import com.nunnos.warofsuitsjoseppuit.utils.AlertsManager.TwoButtonsAlertListene
 import kotlinx.coroutines.*
 
 
-class GameFragment : Fragment() {
+class GameFragment() : Fragment() {
 
     private val ANIMATION_DURATION = 500L
     private val ANIMATION_WAITING_DURATION = 1000L
@@ -53,7 +53,7 @@ class GameFragment : Fragment() {
         shareViewModel =
             ViewModelProvider(requireActivity() as MainActivity)[MainViewModel::class.java]
         databinding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_game)
-        return inflater.inflate(R.layout.fragment_game, container, false)
+        return  inflater.inflate(R.layout.fragment_game,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -14,4 +14,7 @@ open class MainNavigationViewModel : ViewModel() {
     open fun navigateToGame() {
         navigation.value = MainNavigation.GAME
     }
+    open fun popBackStack() {
+        navigation.value = MainNavigation.POP_BACKSTACK
+    }
 }

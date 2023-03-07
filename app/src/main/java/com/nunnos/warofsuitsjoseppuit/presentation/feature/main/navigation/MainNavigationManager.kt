@@ -11,6 +11,7 @@ import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.Dashboa
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.GameFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.DASHBOARD
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.GAME
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.POP_BACKSTACK
 
 
 class MainNavigationManager() {
@@ -23,6 +24,7 @@ class MainNavigationManager() {
             when (navigation) {
                 DASHBOARD -> navigateToDashboard(activity)
                 GAME -> navigateToGame(activity)
+                POP_BACKSTACK -> popBackStack(activity)
                 else -> throw IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad")
             }
         }
@@ -35,26 +37,36 @@ class MainNavigationManager() {
             overrideSlidingUpTransition(GameFragment.newInstance(), activity)
         }
 
-        private fun overrideSlidingUpTransition(fragment: Fragment?, activity: MainActivity) {
+        private fun popBackStack(activity: MainActivity) {
+            if (activity.supportFragmentManager.fragments.size >= 2) {
+                val lastFragment =
+                    activity.supportFragmentManager.fragments[activity.supportFragmentManager.fragments.size - 2]
+                activity.supportFragmentManager.popBackStack()
+                activity.supportFragmentManager.popBackStack()
+                overrideSlidingUpTransition(lastFragment, activity)
+            } else {
+                activity.finish()
+            }
+        }
+
+        private fun overrideSlidingUpTransition(fragment: Fragment, activity: MainActivity) {
             overrideSlidingTransition(fragment, activity, R.anim.slide_in_up, R.anim.slide_out_down)
         }
 
         private fun overrideSlidingTransition(
-            fragment: Fragment?,
+            fragment: Fragment,
             activity: MainActivity,
             @AnimatorRes @AnimRes enter: Int,
             @AnimatorRes @AnimRes exit: Int
         ) {
             val transaction = activity.supportFragmentManager.beginTransaction()
-            if (fragment != null) {
-                transaction.setCustomAnimations(enter, exit, enter, exit)
-                    //.replace(R.id.activity_fragment_container, fragment)
-                    .add(fragment, "new Fragment")
-                    .addToBackStack(null)
-                    .setTransition(TRANSIT_FRAGMENT_OPEN)
-                    .commit()
-            }
+            val fragmentId = fragment.javaClass.simpleName
 
+            transaction.setCustomAnimations(enter, exit, enter, exit)
+                .add(fragment, fragmentId)
+                .addToBackStack(fragmentId)
+                .setTransition(TRANSIT_FRAGMENT_OPEN)
+                .commit()
         }
     }
 }
