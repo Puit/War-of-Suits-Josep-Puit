@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -26,6 +27,7 @@ import kotlinx.coroutines.*
 
 class GameFragment() : Fragment() {
 
+    private val TAG = this.javaClass.simpleName
     private val ANIMATION_DURATION = 500L
     private val ANIMATION_WAITING_DURATION = 1000L
     private lateinit var databinding: FragmentGameBinding
@@ -53,7 +55,7 @@ class GameFragment() : Fragment() {
         shareViewModel =
             ViewModelProvider(requireActivity() as MainActivity)[MainViewModel::class.java]
         databinding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_game)
-        return  inflater.inflate(R.layout.fragment_game,container,false)
+        return inflater.inflate(R.layout.fragment_game, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,13 +70,13 @@ class GameFragment() : Fragment() {
             databinding.gameScoreBoard.setOpponentScore(it.size)
             vanishLastCardIfNeeded()
             if (it.size != 0)
-                plaOpponentWinAnimation()
+                playOpponentWinAnimation()
         }
         shareViewModel.myWonDeck.observe(viewLifecycleOwner) {
             databinding.gameScoreBoard.setMyScore(it.size)
             vanishLastCardIfNeeded()
             if (it.size != 0)
-                plaIWinAnimation()
+                playIWinAnimation()
         }
     }
 
@@ -166,7 +168,7 @@ class GameFragment() : Fragment() {
         databinding.gameScoreBoard.setRoundTitle(getRound())
     }
 
-    private fun plaIWinAnimation() {
+    private fun playIWinAnimation() {
         val opponentPreviouseY = databinding.gameOponentLot.y
         val myCardPreviouseX = databinding.gameMyLot.x
 
@@ -192,39 +194,48 @@ class GameFragment() : Fragment() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 databinding.gameOponentLot.y = opponentPreviouseY
-                databinding.gameOponentLot.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.back
+                if (context != null) {
+                    databinding.gameOponentLot.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.back
+                        )
                     )
-                )
+                }
             }
         })
         fromMyLotToMyWinLotAnim.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 databinding.gameMyLot.x = myCardPreviouseX
-                databinding.gameMyLot.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.back
+                if (context != null) {
+                    databinding.gameMyLot.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.back
+                        )
                     )
-                )
+                }
                 enableButton(true)
             }
         })
         mainScope.launch {
             val oldJobIndex = jobIndex
             delay(ANIMATION_WAITING_DURATION)
-            if (oldJobIndex == jobIndex) {
-                fromOpponentToMyWinLotAnim.start()
-                fromMyLotToMyWinLotAnim.start()
-                enableButton(false)
+            try {
+                if (oldJobIndex == jobIndex) {
+                    fromOpponentToMyWinLotAnim.start()
+                    fromMyLotToMyWinLotAnim.start()
+                    enableButton(false)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "playIWinAnimation: Something went wrong")
             }
+
         }
     }
 
-    private fun plaOpponentWinAnimation() {
+    private fun playOpponentWinAnimation() {
         val opponentPreviouseX = databinding.gameOponentLot.x
         val myCardPreviouseY = databinding.gameMyLot.y
 
@@ -250,12 +261,14 @@ class GameFragment() : Fragment() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 databinding.gameOponentLot.x = opponentPreviouseX
-                databinding.gameOponentLot.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.back
+                if (context != null) {
+                    databinding.gameOponentLot.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.back
+                        )
                     )
-                )
+                }
                 enableButton(true)
             }
         })
@@ -263,22 +276,28 @@ class GameFragment() : Fragment() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 databinding.gameMyLot.y = myCardPreviouseY
-                databinding.gameMyLot.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.back
+                if (context != null) {
+                    databinding.gameMyLot.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.back
+                        )
                     )
-                )
+                }
                 enableButton(true)
             }
         })
         mainScope.launch {
             val oldJobIndex = jobIndex
             delay(ANIMATION_WAITING_DURATION)
-            if (oldJobIndex == jobIndex) {
-                fromMetToOpponentWinLotAnim.start()
-                fromOpponentToOpponentWinLotAnim.start()
-                enableButton(false)
+            try {
+                if (oldJobIndex == jobIndex) {
+                    fromMetToOpponentWinLotAnim.start()
+                    fromOpponentToOpponentWinLotAnim.start()
+                    enableButton(false)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "playIWinAnimation: Something went wrong")
             }
         }
     }
@@ -332,6 +351,11 @@ class GameFragment() : Fragment() {
     private fun enableButton(bool: Boolean) {
         enableToClick = bool
         databinding.gamePlayBtn.isEnabled = bool
+    }
+
+    override fun onDestroy() {
+        newGame()
+        super.onDestroy()
     }
 
 }
