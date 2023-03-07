@@ -138,4 +138,12 @@ class MainViewModel : MainNavigationViewModel() {
         }
         return GameResult.TIE
     }
+    fun clearData(){
+        suitPriority= ArrayList<Card.Type>()
+        myDeck= ArrayList<Card>()
+        opponentDeck= ArrayList<Card>()
+        round = 0
+        myWonDeck.value = ArrayList()
+        opponentWonDeck.value = ArrayList()
+    }
 }

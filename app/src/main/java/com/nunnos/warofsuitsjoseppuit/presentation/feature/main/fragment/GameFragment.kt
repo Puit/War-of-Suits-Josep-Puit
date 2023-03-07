@@ -84,6 +84,9 @@ class GameFragment() : Fragment() {
         if (shareViewModel.myDeck.size == 0) {
             databinding.gameMyLotUnder.visibility = INVISIBLE
             databinding.gameScoreBoard.visibility = INVISIBLE
+        }else{
+            databinding.gameMyLotUnder.visibility = VISIBLE
+            databinding.gameScoreBoard.visibility = VISIBLE
         }
     }
 
@@ -355,6 +358,7 @@ class GameFragment() : Fragment() {
 
     override fun onDestroy() {
         newGame()
+        shareViewModel.clearData()
         super.onDestroy()
     }
 
