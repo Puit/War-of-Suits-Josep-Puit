@@ -14,6 +14,7 @@ import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.Dashboa
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.GameFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.fragment.OldGameFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.fragment.OldGamesDistributorFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.DISTRIBUTOR
@@ -29,7 +30,7 @@ class OldGamesNavigationManager {
         ) {
             when (navigation) {
                 DISTRIBUTOR -> navigateToDistributor(activity)
-                OLD_GAME -> navigateToOldGame(activity)
+                OLD_GAME -> navigateToOldGame(activity,viewModel)
                 POP_BACKSTACK -> popBackStack(activity)
                 else -> throw IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad")
             }
@@ -39,8 +40,8 @@ class OldGamesNavigationManager {
             overrideSlidingUpTransition(OldGamesDistributorFragment.newInstance(), activity)
         }
 
-        private fun navigateToOldGame(activity: OldGamesActivity) { //TODO: CAMBIAR 
-            overrideSlidingUpTransition(OldGamesDistributorFragment.newInstance(), activity)
+        private fun navigateToOldGame(activity: OldGamesActivity, viewModel: OldGamesViewModel?) {
+            overrideSlidingUpTransition(OldGameFragment.newInstance(viewModel!!.selectedGame), activity)
         }
 
         private fun popBackStack(activity: OldGamesActivity) {

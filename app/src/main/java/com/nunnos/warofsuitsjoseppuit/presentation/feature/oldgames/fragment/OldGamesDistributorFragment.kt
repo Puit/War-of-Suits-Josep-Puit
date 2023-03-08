@@ -53,8 +53,8 @@ class OldGamesDistributorFragment : Fragment(), DistributorAdapter.CustomItemCli
         suits.add(Card.Type.DIAMONTS)
         suits.add(Card.Type.HEARTS)
         suits.add(Card.Type.CLUBS)
-        val oldGame1 = OldGame(true, suits,"20/02/2023","10:20")
-        val oldGame2 = OldGame(false, suits,"05/05/2025","15:25")
+        val oldGame1 = OldGame(true, suits,"20/02/2023","10:20","")
+        val oldGame2 = OldGame(false, suits,"05/05/2025","15:25","")
         val oldGameList =  listOf<OldGame>(oldGame1, oldGame2)
         //--------------------
 /*
@@ -65,7 +65,6 @@ class OldGamesDistributorFragment : Fragment(), DistributorAdapter.CustomItemCli
         adapter = DistributorAdapter(oldGameList, this)
         databinding.oldGamesRecyclerView.adapter = adapter
         databinding.oldGamesRecyclerView.setHasFixedSize(false)
-        adapter.notifyDataSetChanged()
     }
 
     private fun initObservers() {
