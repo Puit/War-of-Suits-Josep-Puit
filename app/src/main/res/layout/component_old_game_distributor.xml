@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/old_game_distributor_who_won"
+            style="@style/bold.black.20"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:lines="1"
+            android:text="@string/lost"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/old_game_distributor_suits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/old_game_distributor_date"
+            app:layout_constraintStart_toEndOf="@+id/old_game_distributor_who_won"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/old_game_distributor_suit_1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                tools:src="@drawable/spades" />
+
+            <ImageView
+                android:id="@+id/old_game_distributor_suit_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                tools:src="@drawable/clubs" />
+
+            <ImageView
+                android:id="@+id/old_game_distributor_suit_3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                tools:src="@drawable/diamonds" />
+
+            <ImageView
+                android:id="@+id/old_game_distributor_suit_4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                tools:src="@drawable/hearts" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/old_game_distributor_date"
+            style="@style/bold.black.15"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="20/20/2023" />
+
+        <TextView
+            android:id="@+id/old_game_distributor_time"
+            style="@style/bold.black.15"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/old_game_distributor_date"
+            tools:text="20:20" />
+
+        <View
+            android:id="@+id/old_game_distributor_separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/gray_light"
+            app:layout_constraintTop_toBottomOf="@+id/old_game_distributor_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

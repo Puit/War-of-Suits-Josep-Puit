@@ -17,4 +17,6 @@
     <string name="no">No</string>
     <string name="round">Round</string>
     <string name="old_games">Old games</string>
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
 </resources>

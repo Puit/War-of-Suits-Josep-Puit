@@ -39,8 +39,8 @@ class OldGamesNavigationManager {
             overrideSlidingUpTransition(OldGamesDistributorFragment.newInstance(), activity)
         }
 
-        private fun navigateToOldGame(activity: OldGamesActivity) {
-            overrideSlidingUpTransition(GameFragment.newInstance(), activity)
+        private fun navigateToOldGame(activity: OldGamesActivity) { //TODO: CAMBIAR 
+            overrideSlidingUpTransition(OldGamesDistributorFragment.newInstance(), activity)
         }
 
         private fun popBackStack(activity: OldGamesActivity) {

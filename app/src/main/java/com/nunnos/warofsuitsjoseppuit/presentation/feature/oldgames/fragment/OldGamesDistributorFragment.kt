@@ -7,13 +7,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.nunnos.warofsuitsjoseppuit.R
+import com.nunnos.warofsuitsjoseppuit.data.Card
+import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGame
 import com.nunnos.warofsuitsjoseppuit.databinding.FragmentOldGamesDistributorBinding
+import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.distributor.DistributorAdapter
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
 
-class OldGamesDistributorFragment : Fragment() {
+class OldGamesDistributorFragment : Fragment(), DistributorAdapter.CustomItemClick {
     lateinit var databinding: FragmentOldGamesDistributorBinding
     lateinit var shareViewModel: OldGamesViewModel
+
+    private lateinit var adapter: DistributorAdapter
 
     companion object {
         fun newInstance(): OldGamesDistributorFragment {
@@ -35,5 +40,40 @@ class OldGamesDistributorFragment : Fragment() {
             R.layout.fragment_old_games_distributor
         )
         return inflater.inflate(R.layout.fragment_old_games_distributor, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initObservers()
+        //TODO borrar de aqui y poner en observables
+
+        //Mock----------------
+        val suits = ArrayList<Card.Type>()
+        suits.add(Card.Type.SPADES)
+        suits.add(Card.Type.DIAMONTS)
+        suits.add(Card.Type.HEARTS)
+        suits.add(Card.Type.CLUBS)
+        val oldGame1 = OldGame(true, suits,"20/02/2023","10:20")
+        val oldGame2 = OldGame(false, suits,"05/05/2025","15:25")
+        val oldGameList =  listOf<OldGame>(oldGame1, oldGame2)
+        //--------------------
+/*
+        val onClickListener = DistributorAdapter.CustomItemClick { selectedGame ->
+            shareViewModel.selectedGame = selectedGame
+            shareViewModel.navigateToOldGame()
+        }*/
+        adapter = DistributorAdapter(oldGameList, this)
+        databinding.oldGamesRecyclerView.adapter = adapter
+        databinding.oldGamesRecyclerView.setHasFixedSize(false)
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun initObservers() {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onItemClick(game: OldGame) {
+        shareViewModel.selectedGame = game
+        shareViewModel.navigateToOldGame()
     }
 }
