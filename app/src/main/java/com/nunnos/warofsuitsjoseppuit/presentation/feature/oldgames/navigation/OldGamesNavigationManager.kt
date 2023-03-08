@@ -1,52 +1,49 @@
-package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation
+package com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation
 
-import android.content.Intent
 import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
+import androidx.annotation.NavigationRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModel
 import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.MainActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm.MainViewModel
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.DashboardFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.GameFragment
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.DASHBOARD
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.GAME
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.OLD_GAMES
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation.Companion.POP_BACKSTACK
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.fragment.OldGamesDistributorFragment
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.DISTRIBUTOR
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.OLD_GAME
+import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.POP_BACKSTACK
 
-
-class MainNavigationManager() {
+class OldGamesNavigationManager {
     companion object {
         fun goTo(
-            activity: MainActivity,
-            @MainNavigation navigation: Int?,
-            viewModel: MainViewModel?
+            activity: OldGamesActivity,
+            @OldGamesNavigation navigation: Int?,
+            viewModel: OldGamesViewModel?
         ) {
             when (navigation) {
-                DASHBOARD -> navigateToDashboard(activity)
-                GAME -> navigateToGame(activity)
-                OLD_GAMES -> navigateToOldGames(activity)
+                DISTRIBUTOR -> navigateToDistributor(activity)
+                OLD_GAME -> navigateToOldGame(activity)
                 POP_BACKSTACK -> popBackStack(activity)
                 else -> throw IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad")
             }
         }
 
-        private fun navigateToDashboard(activity: MainActivity) {
-            overrideSlidingUpTransition(DashboardFragment.newInstance(), activity)
+        private fun navigateToDistributor(activity: OldGamesActivity) {
+            overrideSlidingUpTransition(OldGamesDistributorFragment.newInstance(), activity)
         }
 
-        private fun navigateToGame(activity: MainActivity) {
+        private fun navigateToOldGame(activity: OldGamesActivity) {
             overrideSlidingUpTransition(GameFragment.newInstance(), activity)
         }
 
-        private fun navigateToOldGames(activity: MainActivity) {
-            val intent = Intent(activity.applicationContext, OldGamesActivity::class.java)
-            activity.startActivity(intent)
-        }
-
-        private fun popBackStack(activity: MainActivity) {
+        private fun popBackStack(activity: OldGamesActivity) {
             if (activity.supportFragmentManager.fragments.size >= 2) {
                 val lastFragment =
                     activity.supportFragmentManager.fragments[activity.supportFragmentManager.fragments.size - 2]
@@ -58,13 +55,13 @@ class MainNavigationManager() {
             }
         }
 
-        private fun overrideSlidingUpTransition(fragment: Fragment, activity: MainActivity) {
+        private fun overrideSlidingUpTransition(fragment: Fragment, activity: OldGamesActivity) {
             overrideSlidingTransition(fragment, activity, R.anim.slide_in_up, R.anim.slide_out_down)
         }
 
         private fun overrideSlidingTransition(
             fragment: Fragment,
-            activity: MainActivity,
+            activity: OldGamesActivity,
             @AnimatorRes @AnimRes enter: Int,
             @AnimatorRes @AnimRes exit: Int
         ) {
@@ -74,7 +71,7 @@ class MainNavigationManager() {
             transaction.setCustomAnimations(enter, exit, enter, exit)
                 .add(fragment, fragmentId)
                 .addToBackStack(fragmentId)
-                .setTransition(TRANSIT_FRAGMENT_OPEN)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
         }
     }

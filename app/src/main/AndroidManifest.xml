@@ -23,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.feature.oldgames.activity.OldGamesActivity"
+            android:exported="true"/>
 
     </application>
 

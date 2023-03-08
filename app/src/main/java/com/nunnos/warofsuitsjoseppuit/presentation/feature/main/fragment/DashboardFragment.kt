@@ -41,5 +41,8 @@ class DashboardFragment() : Fragment() {
         databinding.dashboardStartBtn.setOnClickListener {
             shareViewModel.navigateToGame()
         }
+        databinding.dashboardOldGamesBtn.setOnClickListener {
+            shareViewModel.navigateToOldGames()
+        }
     }
 }
