@@ -39,50 +39,46 @@ class MainViewModelTest {
 
     }
 
-    @Test
-    fun testCutre() {
-        assertEquals(2, 2)
-    }
 
     @Test
     fun dealCards_noMoreThan52Cards() {
         SUT.dealCards()
         assertEquals(SUT.myDeck.size + SUT.opponentDeck.size, Card.MAX_CARDS)
     }
-//
-//    @Test
-//    fun dealCards_checkBothDecksHaveSameAmountOfCards() {
-//        SUT.dealCards()
-//        assert(SUT.myDeck.size == SUT.opponentDeck.size)
-//        assertEquals(true, false)
-//    }
-//
-//    @Test
-//    fun dealCards_checkThereAreNoRepitedCards() {
-//        SUT.dealCards()
-//
-//        var cardsRepited = 0
-//        for (indexCardToCheck in SUT.myDeck.size - 1 downTo 0 step 1) {
-//            val cardToCheck = SUT.myDeck[indexCardToCheck]
-//            for (myCardsIndex in SUT.myDeck.size - 1 downTo 0 step 1) {
-//                if (cardToCheck.number == SUT.myDeck[myCardsIndex].number && cardToCheck.type == SUT.myDeck[myCardsIndex].type) {
-//                    cardsRepited++
-//                }
-//            }
-//            for (opponentCardsIndex in SUT.opponentDeck.size - 1 downTo 0 step 1) {
-//                if (cardToCheck.number == SUT.opponentDeck[opponentCardsIndex].number && cardToCheck.type == SUT.opponentDeck[opponentCardsIndex].type) {
-//                    cardsRepited++
-//                }
-//            }
-//        }
-//        for (indexCardToCheck in SUT.opponentDeck.size - 1 downTo 0 step 1) {
-//            val cardToCheck = SUT.myDeck[indexCardToCheck]
-//            for (opponentCardsIndex in SUT.opponentDeck.size - 1 downTo 0 step 1) {
-//                if (cardToCheck.number == SUT.opponentDeck[opponentCardsIndex].number && cardToCheck.type == SUT.opponentDeck[opponentCardsIndex].type) {
-//                    cardsRepited++
-//                }
-//            }
-//        }
-//        assertEquals(cardsRepited, true)
-//    }
+
+    @Test
+    fun dealCards_checkBothDecksHaveSameAmountOfCards() {
+        SUT.dealCards()
+        assert(SUT.myDeck.size == SUT.opponentDeck.size)
+        assertEquals(true, false)
+    }
+
+    @Test
+    fun dealCards_checkThereAreNoRepitedCards() {
+        SUT.dealCards()
+
+        var cardsRepited = 0
+        for (indexCardToCheck in SUT.myDeck.size - 1 downTo 0 step 1) {
+            val cardToCheck = SUT.myDeck[indexCardToCheck]
+            for (myCardsIndex in SUT.myDeck.size - 1 downTo 0 step 1) {
+                if (cardToCheck.number == SUT.myDeck[myCardsIndex].number && cardToCheck.type == SUT.myDeck[myCardsIndex].type) {
+                    cardsRepited++
+                }
+            }
+            for (opponentCardsIndex in SUT.opponentDeck.size - 1 downTo 0 step 1) {
+                if (cardToCheck.number == SUT.opponentDeck[opponentCardsIndex].number && cardToCheck.type == SUT.opponentDeck[opponentCardsIndex].type) {
+                    cardsRepited++
+                }
+            }
+        }
+        for (indexCardToCheck in SUT.opponentDeck.size - 1 downTo 0 step 1) {
+            val cardToCheck = SUT.myDeck[indexCardToCheck]
+            for (opponentCardsIndex in SUT.opponentDeck.size - 1 downTo 0 step 1) {
+                if (cardToCheck.number == SUT.opponentDeck[opponentCardsIndex].number && cardToCheck.type == SUT.opponentDeck[opponentCardsIndex].type) {
+                    cardsRepited++
+                }
+            }
+        }
+        assertEquals(cardsRepited, true)
+    }
 }
