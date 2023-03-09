@@ -26,7 +26,6 @@ import kotlinx.coroutines.*
 
 
 class GameFragment() : Fragment() {
-
     private val TAG = this.javaClass.simpleName
     private val ANIMATION_DURATION = 500L
     private val ANIMATION_WAITING_DURATION = 1000L

@@ -46,6 +46,18 @@ class OldGameMapper {
             return entityList
         }
 
+        fun getSuitFromString(text: String): Card.Type {
+            val gson = Gson()
+            val listType = object : TypeToken<Card.Type?>() {}.type
+            return gson.fromJson(text, listType)
+        }
+
+        fun getStringFromSuit(suit: Card.Type ): String{
+            val gson = Gson()
+            return gson.toJson(suit)
+        }
+
+
         fun getSuitsFromString(text: String): ArrayList<Card.Type> {
             val gson = Gson()
             val listType = object : TypeToken<ArrayList<Card.Type?>?>() {}.type

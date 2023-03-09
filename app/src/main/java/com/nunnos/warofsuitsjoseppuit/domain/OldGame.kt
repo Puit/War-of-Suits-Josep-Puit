@@ -26,4 +26,9 @@ class OldGame {
     }
 
     constructor()
+
+    fun addGame(myCard: Card, opponentCard: Card, isWon: Boolean) {
+        this.game =
+            this.game + myCard.toString() + opponentCard.toString() + isWon + "/"
+    }
 }

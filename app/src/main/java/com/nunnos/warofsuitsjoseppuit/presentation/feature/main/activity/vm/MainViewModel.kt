@@ -7,12 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.data.Card
-import com.nunnos.warofsuitsjoseppuit.data.Card.Companion.MAX_CARDS
+import com.nunnos.warofsuitsjoseppuit.data.Card.CREATOR.MAX_CARDS
 import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameDB
-import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameEntity
 import com.nunnos.warofsuitsjoseppuit.data.repository.OldGameRepository
 import com.nunnos.warofsuitsjoseppuit.domain.OldGame
-import com.nunnos.warofsuitsjoseppuit.domain.mapper.OldGameMapper
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm.MainNavigationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,7 +112,9 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
 
     fun playOneRound() {
         if (myDeck.isNotEmpty() && opponentDeck.isNotEmpty() && suitPriority.isNotEmpty()) {
-            if (checkIfIWonTheRound(myDeck[0], opponentDeck[0], suitPriority)) {
+            val isWon = checkIfIWonTheRound(myDeck[0], opponentDeck[0], suitPriority)
+            thisGame.addGame(myDeck[0], opponentDeck[0], isWon)
+            if (isWon) {
                 addCard(myWonDeck, myDeck[0])
                 addCard(myWonDeck, opponentDeck[0])
                 Log.d(
