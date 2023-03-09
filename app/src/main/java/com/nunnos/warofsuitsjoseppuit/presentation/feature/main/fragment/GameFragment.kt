@@ -320,6 +320,8 @@ class GameFragment() : Fragment() {
         databinding.gameOponentLotUnder.visibility = GONE
         databinding.gamePlayBtn.text = getString(R.string.start)
         databinding.gameResetBtn.visibility = INVISIBLE
+
+        shareViewModel.addGame()
     }
 
     private fun getDrawableOfCard(card: Card): Drawable? {

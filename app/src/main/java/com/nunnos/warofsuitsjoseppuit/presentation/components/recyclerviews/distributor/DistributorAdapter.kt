@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.data.Card
-import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGame
+import com.nunnos.warofsuitsjoseppuit.domain.OldGame
 
 class DistributorAdapter(items: List<OldGame>, listener: CustomItemClick) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -91,11 +91,7 @@ class DistributorAdapter(items: List<OldGame>, listener: CustomItemClick) :
         fun bind(game: OldGame) {
             this.game = game
             setImages(game)
-            if (game.isWon) {
-                won.text = itemView.context.getString(R.string.won)
-            } else {
-                won.text = itemView.context.getString(R.string.lost)
-            }
+            won.text = game.result
             date.text = game.date
             time.text = game.time
         }

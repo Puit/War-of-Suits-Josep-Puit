@@ -1,12 +1,24 @@
 package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.data.Card
 import com.nunnos.warofsuitsjoseppuit.data.Card.Companion.MAX_CARDS
+import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameDB
+import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameEntity
+import com.nunnos.warofsuitsjoseppuit.data.repository.OldGameRepository
+import com.nunnos.warofsuitsjoseppuit.domain.OldGame
+import com.nunnos.warofsuitsjoseppuit.domain.mapper.OldGameMapper
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm.MainNavigationViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
 
-class MainViewModel : MainNavigationViewModel() {
+class MainViewModel(application: Application) : MainNavigationViewModel(application) {
     enum class GameResult {
         WIN, LOSE, TIE
     }
@@ -18,7 +30,47 @@ class MainViewModel : MainNavigationViewModel() {
     var round = 0
     var myWonDeck: MutableLiveData<ArrayList<Card>> = MutableLiveData()
     var opponentWonDeck: MutableLiveData<ArrayList<Card>> = MutableLiveData()
+    val thisGame = OldGame()
+    private val repository: OldGameRepository
+    private var context: Context
 
+    init {
+        val dao = OldGameDB.getInstance(application).getDao()
+        repository = OldGameRepository(dao)
+        this.context = application
+    }
+
+    fun addGame() {
+        thisGame.suits = suitPriority
+        thisGame.date = getDate()
+        thisGame.time = getTime()
+
+        val result: String
+        when (checkIfIWonTheGame(
+            myWonDeck.value!!, opponentWonDeck.value!!
+        )) {
+            GameResult.WIN -> result = context.getString(R.string.you_win)
+            GameResult.LOSE -> result = context.getString(R.string.you_lose)
+            GameResult.TIE -> result = context.getString(R.string.tie)
+        }
+        thisGame.result = result
+        var entity = OldGameMapper.map(thisGame)
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addGame(entity)
+        }
+    }
+
+    private fun getTime(): String {
+        val calendar = Calendar.getInstance()
+        return "" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE)
+    }
+
+    private fun getDate(): String {
+        val calendar = Calendar.getInstance()
+        return "" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(
+            Calendar.YEAR
+        )
+    }
     //TODO: TEST: comprobar que no hay más de 52,
     //TODO: TEST: comprobar que cada uno tiene 26
     //TODO: TEST: comprobar que MyCard no repite cartas
@@ -138,10 +190,11 @@ class MainViewModel : MainNavigationViewModel() {
         }
         return GameResult.TIE
     }
-    fun clearData(){
-        suitPriority= ArrayList<Card.Type>()
-        myDeck= ArrayList<Card>()
-        opponentDeck= ArrayList<Card>()
+
+    fun clearData() {
+        suitPriority = ArrayList<Card.Type>()
+        myDeck = ArrayList<Card>()
+        opponentDeck = ArrayList<Card>()
         round = 0
         myWonDeck.value = ArrayList()
         opponentWonDeck.value = ArrayList()

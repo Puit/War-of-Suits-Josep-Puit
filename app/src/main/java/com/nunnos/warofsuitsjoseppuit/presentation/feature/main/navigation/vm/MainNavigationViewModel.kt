@@ -1,10 +1,12 @@
 package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation
 
-open class MainNavigationViewModel : ViewModel() {
+open class MainNavigationViewModel(application: Application) : AndroidViewModel(application) {
     open var navigation = MutableLiveData<Int>()
 
     open fun navigateToDashboard() {

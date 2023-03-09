@@ -2,21 +2,13 @@ package com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation
 
 import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
-import androidx.annotation.NavigationRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModel
 import com.nunnos.warofsuitsjoseppuit.R
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.MainActivity
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm.MainViewModel
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.DashboardFragment
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.fragment.GameFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.fragment.OldGameFragment
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.fragment.OldGamesDistributorFragment
-import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.DISTRIBUTOR
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.OLD_GAME
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation.OldGamesNavigation.Companion.POP_BACKSTACK
@@ -30,7 +22,7 @@ class OldGamesNavigationManager {
         ) {
             when (navigation) {
                 DISTRIBUTOR -> navigateToDistributor(activity)
-                OLD_GAME -> navigateToOldGame(activity,viewModel)
+                OLD_GAME -> navigateToOldGame(activity, viewModel)
                 POP_BACKSTACK -> popBackStack(activity)
                 else -> throw IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad")
             }
@@ -41,7 +33,10 @@ class OldGamesNavigationManager {
         }
 
         private fun navigateToOldGame(activity: OldGamesActivity, viewModel: OldGamesViewModel?) {
-            overrideSlidingUpTransition(OldGameFragment.newInstance(viewModel!!.selectedGame), activity)
+            overrideSlidingUpTransition(
+                OldGameFragment.newInstance(viewModel!!.selectedGame),
+                activity
+            )
         }
 
         private fun popBackStack(activity: OldGamesActivity) {

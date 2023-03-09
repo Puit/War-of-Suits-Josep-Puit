@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.nunnos.warofsuitsjoseppuit.R
-import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGame
 import com.nunnos.warofsuitsjoseppuit.databinding.FragmentOldGameBinding
+import com.nunnos.warofsuitsjoseppuit.domain.OldGame
 import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.distributor.DistributorAdapter
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
@@ -53,10 +53,7 @@ class OldGameFragment(oldGame: OldGame) : Fragment() {
     }
 
     private fun setView() {
-        if (oldGame.isWon)
-            databinding.oldGameResult.text = getString(R.string.you_win)
-        else
-            databinding.oldGameResult.text = getString(R.string.you_lose)
+        databinding.oldGameResult.text = oldGame.result
         databinding.oldGameDate.text = oldGame.date + " " + oldGame.time
         databinding.oldGameScore.setMyScore(calculateMyScore(oldGame))
         databinding.oldGameScore.setMyScore(calculateOpponentScore(oldGame))

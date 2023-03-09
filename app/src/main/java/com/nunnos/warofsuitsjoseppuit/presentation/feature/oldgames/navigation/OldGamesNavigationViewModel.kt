@@ -1,9 +1,10 @@
 package com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.navigation
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 
-open class OldGamesNavigationViewModel : ViewModel() {
+open class OldGamesNavigationViewModel(application: Application) : AndroidViewModel(application) {
     open var navigation = MutableLiveData<Int>()
 
     open fun navigateToDistributor() {
@@ -13,6 +14,7 @@ open class OldGamesNavigationViewModel : ViewModel() {
     open fun navigateToOldGame() {
         navigation.value = OldGamesNavigation.OLD_GAME
     }
+
     open fun popBackStack() {
         navigation.value = OldGamesNavigation.POP_BACKSTACK
     }
