@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.nunnos.warofsuitsjoseppuit.R
@@ -50,60 +51,12 @@ class OldGameRoundAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-      /*  var myDeck = getMyDeck()
-        (holder as DistributorAdapterViewHolder).bind(
-            items[position],
-            calculateMyScore(myDeck, opponentDeck, suitPriority, position),
-            calculateOpponentScore(myDeck, opponentDeck, suitPriority, position),
-            activity
-        )*/
         (holder as OldGameAdapterViewHolder).bind(
             items[position],
-            0,
-            0,
+            GameHelper.calculateScore(items, suitPriority, position, true),
+            GameHelper.calculateScore(items, suitPriority, position, false),
             activity
         )
-    }
-
-    private fun calculateMyScore(
-        myDeck: List<Round>,
-        opponentDeck: List<Round>,
-        suitPriority: ArrayList<Card.Type>,
-        position: Int,
-
-        ): Int {
-        var myScore = 0
-        for (index in 0..position) {
-            if (GameHelper.checkIfIWonTheRound(
-                    myDeck[index].myCard,
-                    opponentDeck[index].oppponentCard,
-                    suitPriority
-                )
-            ) {
-                myScore += 2
-            }
-        }
-        return myScore
-    }
-
-    private fun calculateOpponentScore(
-        myDeck: List<Round>,
-        opponentDeck: List<Round>,
-        suitPriority: ArrayList<Card.Type>,
-        position: Int,
-    ): Int {
-        var myScore = 0
-        for (index in 0..position) {
-            if (!GameHelper.checkIfIWonTheRound(
-                    myDeck[index].myCard,
-                    opponentDeck[index].oppponentCard,
-                    suitPriority
-                )
-            ) {
-                myScore += 2
-            }
-        }
-        return myScore
     }
 
     override fun getItemCount(): Int {
@@ -180,7 +133,19 @@ class OldGameRoundAdapter(
         }
 
         override fun onClick(v: View) {
-            //TODO
+            if (isWon) {
+                Toast.makeText(
+                    v.context,
+                    v.context.getString(R.string.you_won_this_round),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    v.context,
+                    v.context.getString(R.string.you_lost_this_round),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }

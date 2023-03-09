@@ -13,6 +13,7 @@ import com.nunnos.warofsuitsjoseppuit.data.repository.OldGameRepository
 import com.nunnos.warofsuitsjoseppuit.domain.OldGame
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm.MainNavigationViewModel
 import com.nunnos.warofsuitsjoseppuit.utils.GameHelper
+import com.nunnos.warofsuitsjoseppuit.utils.TimeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -60,14 +61,12 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
 
     private fun getTime(): String {
         val calendar = Calendar.getInstance()
-        return "" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE)
+        return TimeUtils.timeToString(calendar)!!
     }
 
     private fun getDate(): String {
         val calendar = Calendar.getInstance()
-        return "" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(
-            Calendar.YEAR
-        )
+        return TimeUtils.dateToString(calendar)!!
     }
 
     fun dealCards() {

@@ -1,6 +1,7 @@
 package com.nunnos.warofsuitsjoseppuit.utils
 
 import com.nunnos.warofsuitsjoseppuit.data.Card
+import com.nunnos.warofsuitsjoseppuit.data.Card.Companion.MAX_CARDS
 import com.nunnos.warofsuitsjoseppuit.domain.Round
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity.vm.MainViewModel
 
@@ -75,6 +76,80 @@ class GameHelper {
                 return MainViewModel.GameResult.LOSE
             }
             return MainViewModel.GameResult.TIE
+        }
+
+        fun calculateScore(
+            deck: List<Round>,
+            suitPriority: ArrayList<Card.Type>,
+            position: Int,
+            isMyScore: Boolean
+        ): Int {
+            var myScore = 0
+            var opponentScore = 0
+            for (index in 0..position) {
+                if (checkIfIWonTheRound(
+                        deck[index].myCard,
+                        deck[index].oppponentCard,
+                        suitPriority
+                    )
+                ) {
+                    myScore += 2
+                } else {
+                    opponentScore += 2
+                }
+            }
+            if (isMyScore) {
+                return myScore
+            } else {
+                return opponentScore
+            }
+        }
+
+        fun getMaxScore(
+            deck: List<Round>,
+            suitPriority: ArrayList<Card.Type>,
+            isMyScore: Boolean
+        ): Int {
+            return calculateScore(
+                deck,
+                suitPriority,
+                (MAX_CARDS / 2) - 1,
+                isMyScore
+            )
+        }
+
+        fun getAllRounds(game: String): ArrayList<Round> {
+            val roundsList = ArrayList<Round>()
+            val roundStrings = game.split("/")
+            for (round in roundStrings) {
+                getRound(round)?.let { roundsList.add(it) }
+            }
+            return roundsList
+        }
+
+        private fun getRound(roundString: String): Round? {
+            try {
+                val cardsStringList = roundString.split("(", ")")
+                val cardsStringArrayList = ArrayList<String>()
+
+                for (string in cardsStringList) {
+                    if (string.isNotEmpty()) {
+                        cardsStringArrayList.add(string)
+                    }
+                }
+                val myCard = Card(
+                    Card.Type.valueOf(cardsStringArrayList[0].split(",")[0]),
+                    Card.Number.valueOf(cardsStringArrayList[0].split(",")[1].replace(" ", ""))
+                )
+                val opponentCard = Card(
+                    Card.Type.valueOf(cardsStringArrayList[1].split(",")[0]),
+                    Card.Number.valueOf(cardsStringArrayList[1].split(",")[1].replace(" ", ""))
+                )
+
+                return Round(myCard, opponentCard, roundString.endsWith("true"))
+            } catch (e: Exception) {
+                return null
+            }
         }
     }
 }

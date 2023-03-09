@@ -19,4 +19,6 @@
     <string name="old_games">Old games</string>
     <string name="won">Won</string>
     <string name="lost">Lost</string>
+    <string name="you_won_this_round">You won this round</string>
+    <string name="you_lost_this_round">You lost this round</string>
 </resources>

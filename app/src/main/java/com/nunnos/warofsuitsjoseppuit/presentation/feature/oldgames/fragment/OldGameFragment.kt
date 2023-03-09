@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.databinding.FragmentOldGameBinding
 import com.nunnos.warofsuitsjoseppuit.domain.OldGame
-import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.distributor.DistributorAdapter
 import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.oldgamesadapter.OldGameRoundAdapter
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
+import com.nunnos.warofsuitsjoseppuit.utils.GameHelper
 
-class OldGameFragment(oldGame: OldGame,activity: OldGamesActivity) : Fragment() {
+class OldGameFragment(oldGame: OldGame, activity: OldGamesActivity) : Fragment() {
 
     lateinit var databinding: FragmentOldGameBinding
     lateinit var shareViewModel: OldGamesViewModel
@@ -25,7 +25,7 @@ class OldGameFragment(oldGame: OldGame,activity: OldGamesActivity) : Fragment() 
 
     companion object {
         fun newInstance(oldGame: OldGame, activity: OldGamesActivity): OldGameFragment {
-            val fragment = OldGameFragment(oldGame,activity)
+            val fragment = OldGameFragment(oldGame, activity)
             val args = Bundle()
             fragment.arguments = args
             return fragment
@@ -58,15 +58,35 @@ class OldGameFragment(oldGame: OldGame,activity: OldGamesActivity) : Fragment() 
     private fun setView() {
         databinding.oldGameResult.text = oldGame.result
         databinding.oldGameDate.text = oldGame.date + " " + oldGame.time
-        databinding.oldGameScore.setMyScore(calculateMyScore(oldGame))
-        databinding.oldGameScore.setMyScore(calculateOpponentScore(oldGame))
+        setMyScore()
+        setOpponentScore()
         databinding.oldGameScore.setSuits(oldGame.suits)
         setUpRecyclerView()
     }
 
+    private fun setMyScore() {
+        databinding.oldGameScore.setMyScore(
+            GameHelper.getMaxScore(
+                GameHelper.getAllRounds(oldGame.game),
+                oldGame.suits,
+                true
+            )
+        )
+    }
+
+    private fun setOpponentScore() {
+        databinding.oldGameScore.setOpponentScore(
+            GameHelper.getMaxScore(
+                GameHelper.getAllRounds(
+                    oldGame.game
+                ), oldGame.suits, false
+            )
+        )
+    }
+
     private fun setUpRecyclerView() {
         adapter = OldGameRoundAdapter(
-            shareViewModel.getAllRounds(shareViewModel.selectedGame.game),
+            GameHelper.getAllRounds(shareViewModel.selectedGame.game),
             shareViewModel.selectedGame.suits,
             activity
         )
@@ -75,13 +95,4 @@ class OldGameFragment(oldGame: OldGame,activity: OldGamesActivity) : Fragment() 
 
     }
 
-    private fun calculateMyScore(oldGame: OldGame): Int {
-        //TODO
-        return 0
-    }
-
-    private fun calculateOpponentScore(oldGame: OldGame): Int {
-        //TODO
-        return 2
-    }
 }
