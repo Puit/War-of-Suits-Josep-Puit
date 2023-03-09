@@ -91,7 +91,7 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
 
     fun playOneRound() {
         if (myDeck.isNotEmpty() && opponentDeck.isNotEmpty() && suitPriority.isNotEmpty()) {
-            val thisRound = GameHelper.playRound(0,myDeck, opponentDeck, suitPriority)
+            val thisRound = GameHelper.playRound(0, myDeck, opponentDeck, suitPriority)
             thisGame.addGame(thisRound)
             if (thisRound.isWon) {
                 addCard(myWonDeck, myDeck[0])

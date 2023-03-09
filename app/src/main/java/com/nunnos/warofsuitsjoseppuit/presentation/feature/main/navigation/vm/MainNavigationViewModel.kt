@@ -3,7 +3,6 @@ package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.MainNavigation
 
 open class MainNavigationViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,9 +15,11 @@ open class MainNavigationViewModel(application: Application) : AndroidViewModel(
     open fun navigateToGame() {
         navigation.value = MainNavigation.GAME
     }
+
     open fun navigateToOldGames() {
         navigation.value = MainNavigation.OLD_GAMES
     }
+
     open fun popBackStack() {
         navigation.value = MainNavigation.POP_BACKSTACK
     }

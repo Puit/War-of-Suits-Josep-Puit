@@ -7,9 +7,9 @@ import com.nunnos.warofsuitsjoseppuit.domain.OldGame
 import com.nunnos.warofsuitsjoseppuit.domain.mapper.OldGameMapper
 
 class OldGameRepository(private val dao: OldGameDao) {
-  val readAlldata: LiveData<List<OldGameEntity>> = dao.getAll()
+    val readAlldata: LiveData<List<OldGameEntity>> = dao.getAll()
 
-    suspend fun addGame(game: OldGame) {
+    fun addGame(game: OldGame) {
         dao.insert(OldGameMapper.map(game))
     }
 }

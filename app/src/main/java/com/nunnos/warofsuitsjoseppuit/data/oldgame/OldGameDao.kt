@@ -1,12 +1,7 @@
 package com.nunnos.warofsuitsjoseppuit.data.oldgame
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameConstants.Companion.TABLE_NAME
 
 @Dao

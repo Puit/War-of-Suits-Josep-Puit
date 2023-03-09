@@ -12,7 +12,6 @@ import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameConstants.Companion.TA
     version = LATEST_VERSION,
     exportSchema = true
 )
-//@TypeConverters(Converters::class)
 abstract class OldGameDB : RoomDatabase() {
     abstract fun getDao(): OldGameDao
 
@@ -35,16 +34,6 @@ abstract class OldGameDB : RoomDatabase() {
                 this.instance = instance
                 return instance
             }
-            /*if (instance == null) {
-                instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    OldGameDB::class.java,
-                    TABLE_NAME
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-            }
-            return instance*/
         }
     }
 }

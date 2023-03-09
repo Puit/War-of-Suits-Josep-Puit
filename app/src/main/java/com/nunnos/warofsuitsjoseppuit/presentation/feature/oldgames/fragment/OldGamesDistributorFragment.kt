@@ -46,7 +46,6 @@ class OldGamesDistributorFragment : Fragment(), DistributorAdapter.CustomItemCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        /*shareViewModel.getAllOldGames()*/
     }
 
     private fun initObservers() {

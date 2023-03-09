@@ -4,6 +4,7 @@ class Card(type: Type, number: Number) {
     companion object {
         const val MAX_CARDS = 52
     }
+
     enum class Type {
         CLUBS,
         DIAMONTS,

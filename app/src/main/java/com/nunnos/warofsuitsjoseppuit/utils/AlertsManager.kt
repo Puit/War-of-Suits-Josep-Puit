@@ -35,5 +35,4 @@ class AlertsManager {
         fun onLeftClick()
         fun onRightClick()
     }
-
 }

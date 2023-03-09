@@ -2,7 +2,6 @@ package com.nunnos.warofsuitsjoseppuit.domain
 
 import com.nunnos.warofsuitsjoseppuit.data.Card
 
-
 class OldGame {
     var result: String = ""
     var suits: ArrayList<Card.Type> = ArrayList()

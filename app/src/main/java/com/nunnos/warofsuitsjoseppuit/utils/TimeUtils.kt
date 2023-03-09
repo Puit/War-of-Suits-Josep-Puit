@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TimeUtils {
-    companion object{
+    companion object {
 
         fun dateToString(calendar: Calendar): String? {
             return dateToString(calendar, null)
@@ -19,6 +19,7 @@ class TimeUtils {
                 format1.format(calendar.time)
             }
         }
+
         fun timeToString(calendar: Calendar): String? {
             return timeToString(calendar, null)
         }

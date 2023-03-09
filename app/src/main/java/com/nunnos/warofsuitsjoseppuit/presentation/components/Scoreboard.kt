@@ -36,7 +36,7 @@ class Scoreboard @JvmOverloads constructor(
         val attributes =
             context.obtainStyledAttributes(attrs, R.styleable.Scoreboard, 0, 0)
         val leftTitle = attributes.getText(R.styleable.Scoreboard_SC_left_title)
-        val roundTitle = attributes.getText(R.styleable.Scoreboard_SC_left_title)
+        val roundTitle = attributes.getText(R.styleable.Scoreboard_SC_round_title)
         val rightTitle = attributes.getText(R.styleable.Scoreboard_SC_right_title)
         val leftScore = attributes.getText(R.styleable.Scoreboard_SC_left_score)
         val rightScore = attributes.getText(R.styleable.Scoreboard_SC_right_score)

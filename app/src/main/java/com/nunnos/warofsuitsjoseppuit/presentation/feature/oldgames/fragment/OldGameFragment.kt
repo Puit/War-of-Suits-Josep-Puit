@@ -18,8 +18,8 @@ class OldGameFragment(oldGame: OldGame, activity: OldGamesActivity) : Fragment()
 
     lateinit var databinding: FragmentOldGameBinding
     lateinit var shareViewModel: OldGamesViewModel
-    lateinit var oldGame: OldGame
-    lateinit var activity: OldGamesActivity
+    var oldGame: OldGame
+    var activity: OldGamesActivity
 
     private lateinit var adapter: OldGameRoundAdapter
 
@@ -92,7 +92,5 @@ class OldGameFragment(oldGame: OldGame, activity: OldGamesActivity) : Fragment()
         )
         databinding.oldGameRecyclerView.adapter = adapter
         databinding.oldGameRecyclerView.setHasFixedSize(false)
-
     }
-
 }

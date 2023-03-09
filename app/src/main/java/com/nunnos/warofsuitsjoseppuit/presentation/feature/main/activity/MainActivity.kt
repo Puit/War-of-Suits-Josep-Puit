@@ -3,8 +3,6 @@ package com.nunnos.warofsuitsjoseppuit.presentation.feature.main.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.databinding.ActivityMainBinding
@@ -37,5 +35,4 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         viewModel.popBackStack()
     }
-
 }

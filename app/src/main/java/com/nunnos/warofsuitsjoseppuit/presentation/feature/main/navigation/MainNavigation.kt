@@ -15,6 +15,5 @@ annotation class MainNavigation {
         const val GAME = 1
         const val OLD_GAMES = 2
         const val POP_BACKSTACK = 3
-
     }
 }

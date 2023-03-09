@@ -52,7 +52,7 @@ class OldGameMapper {
             return gson.fromJson(text, listType)
         }
 
-        fun getStringFromSuit(suit: Card.Type ): String{
+        fun getStringFromSuit(suit: Card.Type): String {
             val gson = Gson()
             return gson.toJson(suit)
         }

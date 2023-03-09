@@ -34,7 +34,7 @@ class DashboardFragment() : Fragment() {
         databinding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_dashboard)
 
         setListeners()
-        return inflater.inflate(R.layout.fragment_dashboard,container,false)
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     private fun setListeners() {

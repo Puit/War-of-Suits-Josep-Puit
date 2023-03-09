@@ -34,9 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:SC_left_score="0"
-            app:SC_left_title="@string/app_name"
+            app:SC_left_title="@string/opponent"
             app:SC_right_score="0"
             app:SC_right_title="@string/you"
+            app:SC_round_title="@string/app_name"
             app:layout_constraintTop_toBottomOf="@+id/old_game_date" />
 
         <androidx.recyclerview.widget.RecyclerView
