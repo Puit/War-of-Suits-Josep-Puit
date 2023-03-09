@@ -54,9 +54,8 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
             GameResult.TIE -> result = context.getString(R.string.tie)
         }
         thisGame.result = result
-        var entity = OldGameMapper.map(thisGame)
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addGame(entity)
+            repository.addGame(thisGame)
         }
     }
 

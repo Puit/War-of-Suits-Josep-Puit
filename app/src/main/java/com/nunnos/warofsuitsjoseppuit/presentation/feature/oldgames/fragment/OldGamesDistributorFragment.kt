@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.nunnos.warofsuitsjoseppuit.R
-import com.nunnos.warofsuitsjoseppuit.data.Card
+import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameEntity
 import com.nunnos.warofsuitsjoseppuit.databinding.FragmentOldGamesDistributorBinding
 import com.nunnos.warofsuitsjoseppuit.domain.OldGame
+import com.nunnos.warofsuitsjoseppuit.domain.mapper.OldGameMapper
 import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.distributor.DistributorAdapter
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
@@ -45,25 +46,19 @@ class OldGamesDistributorFragment : Fragment(), DistributorAdapter.CustomItemCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        //TODO borrar de aqui y poner en observables
-
-        //Mock----------------
-        val suits = ArrayList<Card.Type>()
-        suits.add(Card.Type.SPADES)
-        suits.add(Card.Type.DIAMONTS)
-        suits.add(Card.Type.HEARTS)
-        suits.add(Card.Type.CLUBS)
-        val oldGame1 = OldGame("You win", suits, "20/02/2023", "10:20", "")
-        val oldGame2 = OldGame("You lose", suits, "05/05/2025", "15:25", "")
-        val oldGameList = listOf<OldGame>(oldGame1, oldGame2)
-        //--------------------
-        adapter = DistributorAdapter(oldGameList, this)
-        databinding.oldGamesRecyclerView.adapter = adapter
-        databinding.oldGamesRecyclerView.setHasFixedSize(false)
+        /*shareViewModel.getAllOldGames()*/
     }
 
     private fun initObservers() {
-        //TODO("Not yet implemented")
+        shareViewModel.readAllData.observe(activity as OldGamesActivity) { gameList ->
+            oldGamesReceived(gameList)
+        }
+    }
+
+    private fun oldGamesReceived(gameList: List<OldGameEntity>) {
+        adapter = DistributorAdapter(OldGameMapper.mapEntityList(gameList), this)
+        databinding.oldGamesRecyclerView.adapter = adapter
+        databinding.oldGamesRecyclerView.setHasFixedSize(false)
     }
 
     override fun onItemClick(game: OldGame) {

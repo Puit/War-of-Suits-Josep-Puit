@@ -19,6 +19,7 @@ class OldGameMapper {
             )
         }
 
+
         fun map(model: OldGame): OldGameEntity {
             return OldGameEntity(
                 model.result,
@@ -27,6 +28,22 @@ class OldGameMapper {
                 model.time,
                 model.game
             )
+        }
+
+        fun mapEntityList(entityList: List<OldGameEntity>): ArrayList<OldGame> {
+            val modelList = ArrayList<OldGame>()
+            for (entity in entityList) {
+                modelList.add(map(entity))
+            }
+            return modelList
+        }
+
+        fun mapModelList(modelList: List<OldGame>): ArrayList<OldGameEntity> {
+            val entityList = ArrayList<OldGameEntity>()
+            for (model in modelList) {
+                entityList.add(map(model))
+            }
+            return entityList
         }
 
         fun getSuitsFromString(text: String): ArrayList<Card.Type> {
