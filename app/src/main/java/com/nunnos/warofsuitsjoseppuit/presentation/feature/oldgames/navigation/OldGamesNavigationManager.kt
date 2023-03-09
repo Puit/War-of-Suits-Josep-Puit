@@ -34,7 +34,7 @@ class OldGamesNavigationManager {
 
         private fun navigateToOldGame(activity: OldGamesActivity, viewModel: OldGamesViewModel?) {
             overrideSlidingUpTransition(
-                OldGameFragment.newInstance(viewModel!!.selectedGame),
+                OldGameFragment.newInstance(viewModel!!.selectedGame, activity),
                 activity
             )
         }

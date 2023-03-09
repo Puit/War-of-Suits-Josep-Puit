@@ -10,20 +10,22 @@ import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.databinding.FragmentOldGameBinding
 import com.nunnos.warofsuitsjoseppuit.domain.OldGame
 import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.distributor.DistributorAdapter
+import com.nunnos.warofsuitsjoseppuit.presentation.components.recyclerviews.oldgamesadapter.OldGameRoundAdapter
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.OldGamesActivity
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.oldgames.activity.vm.OldGamesViewModel
 
-class OldGameFragment(oldGame: OldGame) : Fragment() {
+class OldGameFragment(oldGame: OldGame,activity: OldGamesActivity) : Fragment() {
 
     lateinit var databinding: FragmentOldGameBinding
     lateinit var shareViewModel: OldGamesViewModel
     lateinit var oldGame: OldGame
+    lateinit var activity: OldGamesActivity
 
-    private lateinit var adapter: DistributorAdapter
+    private lateinit var adapter: OldGameRoundAdapter
 
     companion object {
-        fun newInstance(oldGame: OldGame): OldGameFragment {
-            val fragment = OldGameFragment(oldGame)
+        fun newInstance(oldGame: OldGame, activity: OldGamesActivity): OldGameFragment {
+            val fragment = OldGameFragment(oldGame,activity)
             val args = Bundle()
             fragment.arguments = args
             return fragment
@@ -32,6 +34,7 @@ class OldGameFragment(oldGame: OldGame) : Fragment() {
 
     init {
         this.oldGame = oldGame
+        this.activity = activity
     }
 
     override fun onCreateView(
@@ -58,6 +61,18 @@ class OldGameFragment(oldGame: OldGame) : Fragment() {
         databinding.oldGameScore.setMyScore(calculateMyScore(oldGame))
         databinding.oldGameScore.setMyScore(calculateOpponentScore(oldGame))
         databinding.oldGameScore.setSuits(oldGame.suits)
+        setUpRecyclerView()
+    }
+
+    private fun setUpRecyclerView() {
+        adapter = OldGameRoundAdapter(
+            shareViewModel.getAllRounds(shareViewModel.selectedGame.game),
+            shareViewModel.selectedGame.suits,
+            activity
+        )
+        databinding.oldGameRecyclerView.adapter = adapter
+        databinding.oldGameRecyclerView.setHasFixedSize(false)
+
     }
 
     private fun calculateMyScore(oldGame: OldGame): Int {

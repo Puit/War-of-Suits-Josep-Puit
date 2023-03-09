@@ -7,11 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nunnos.warofsuitsjoseppuit.R
 import com.nunnos.warofsuitsjoseppuit.data.Card
-import com.nunnos.warofsuitsjoseppuit.data.Card.CREATOR.MAX_CARDS
+import com.nunnos.warofsuitsjoseppuit.data.Card.Companion.MAX_CARDS
 import com.nunnos.warofsuitsjoseppuit.data.oldgame.OldGameDB
 import com.nunnos.warofsuitsjoseppuit.data.repository.OldGameRepository
 import com.nunnos.warofsuitsjoseppuit.domain.OldGame
 import com.nunnos.warofsuitsjoseppuit.presentation.feature.main.navigation.vm.MainNavigationViewModel
+import com.nunnos.warofsuitsjoseppuit.utils.GameHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -68,14 +69,9 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
             Calendar.YEAR
         )
     }
-    //TODO: TEST: comprobar que no hay más de 52,
-    //TODO: TEST: comprobar que cada uno tiene 26
-    //TODO: TEST: comprobar que MyCard no repite cartas
-    //TODO: TEST: comprobar que OponentCards no repite cartas
-    //TODO: TEST: comprobar que entre Mycards y OponentCards no repite cartas
 
     fun dealCards() {
-        val shuffledDeckOfCards = createOrderedDeckcards().shuffled()
+        val shuffledDeckOfCards = GameHelper.createShuffledDeckcards()
         myDeck = shuffledDeckOfCards.drop(0).take((MAX_CARDS / 2)) as ArrayList<Card>
         opponentDeck =
             shuffledDeckOfCards.drop((MAX_CARDS / 2)).take(MAX_CARDS - 1) as ArrayList<Card>
@@ -86,35 +82,19 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
         Log.d(TAG, "opponentDeck: " + opponentDeck.size)
     }
 
-    fun createOrderedDeckcards(): ArrayList<Card> {
-        val deckOfCards = ArrayList<Card>()
-        for (suitsIndex in Card.Type.values().size - 1 downTo 0 step 1) {
-            for (numberIndex in Card.Number.values().size - 1 downTo 0 step 1) {
-                deckOfCards.add(
-                    Card(Card.Type.values()[suitsIndex], Card.Number.values()[numberIndex])
-                )
-            }
-        }
-        return deckOfCards
-    }
-
     //TODO: TEST: comprobar que hay siempre 4 tipos
     //TODO: TEST: comprobar que mezcla cada vez
     fun shuffleSuitsPriority() {
-        val allSuits = ArrayList<Card.Type>()
-        for (suitsIndex in Card.Type.values().size - 1 downTo 0 step 1) {
-            allSuits.add(Card.Type.values()[suitsIndex])
-        }
-        suitPriority = allSuits.shuffled() as ArrayList<Card.Type>
+        suitPriority = GameHelper.shuffleSuitsPriority()
         Log.d(TAG, "Suit priority: " + suitPriority)
     }
 
 
     fun playOneRound() {
         if (myDeck.isNotEmpty() && opponentDeck.isNotEmpty() && suitPriority.isNotEmpty()) {
-            val isWon = checkIfIWonTheRound(myDeck[0], opponentDeck[0], suitPriority)
-            thisGame.addGame(myDeck[0], opponentDeck[0], isWon)
-            if (isWon) {
+            val thisRound = GameHelper.playRound(0,myDeck, opponentDeck, suitPriority)
+            thisGame.addGame(thisRound)
+            if (thisRound.isWon) {
                 addCard(myWonDeck, myDeck[0])
                 addCard(myWonDeck, opponentDeck[0])
                 Log.d(
@@ -143,31 +123,6 @@ class MainViewModel(application: Application) : MainNavigationViewModel(applicat
             oldList.add(card)
             deck.value = oldList
         }
-    }
-
-    fun checkIfIWonTheRound(
-        myCard: Card,
-        opponentCard: Card,
-        suitPriority: ArrayList<Card.Type>
-    ): Boolean {
-        if (myCard.number > opponentCard.number) {
-            return true
-        } else if (myCard.number < opponentCard.number) {
-            return false
-        }
-        for (suit in suitPriority) {
-            if (myCard.type == suit) {
-                return true
-            }
-            if (opponentCard.type == suit) {
-                return false
-            }
-        }
-        Log.e(
-            TAG,
-            "checkIfIWin: Something wrong happened" + "myCard: " + myCard + "opponentCard: " + opponentCard + "suitPriority: " + suitPriority
-        )
-        return false
     }
 
     fun haveToOrganizeTheGame(): Boolean {

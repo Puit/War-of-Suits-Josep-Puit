@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/old_game_round_opponent_title"
+        style="@style/bold.black.15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/opponent"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/old_game_round_opponent_score"
+        app:layout_constraintEnd_toStartOf="@+id/old_game_round_opponent_card_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/old_game_round_opponent_score"
+        style="@style/bold.black.15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/old_game_round_opponent_card_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/old_game_round_opponent_title"
+        tools:text="100" />
+
+    <ImageView
+        android:id="@+id/old_game_round_opponent_card_image"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/old_game_round_separator"
+        app:layout_constraintStart_toEndOf="@+id/old_game_round_opponent_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/back" />
+
+    <View
+        android:id="@+id/old_game_round_separator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/gray_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/old_game_round_my_card_image"
+        app:layout_constraintStart_toEndOf="@+id/old_game_round_opponent_card_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/old_game_round_my_card_image"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/old_game_round_my_title"
+        app:layout_constraintStart_toEndOf="@+id/old_game_round_separator"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/back" />
+
+    <TextView
+        android:id="@+id/old_game_round_my_title"
+        style="@style/bold.black.15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/you"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/old_game_round_my_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/old_game_round_my_card_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/old_game_round_my_score"
+        style="@style/bold.black.15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/old_game_round_my_card_image"
+        app:layout_constraintTop_toBottomOf="@+id/old_game_round_my_title"
+        tools:text="100" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
